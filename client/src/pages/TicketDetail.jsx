@@ -184,7 +184,6 @@ async function downloadFile(file) {
     </ul>
   </>
 )}
-
         {isAgent && (
           <div className="agent-controls">
             <h2>Manage ticket</h2>
