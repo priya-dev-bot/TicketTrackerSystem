@@ -10,6 +10,8 @@ export const env = {
   mongoUri: process.env.MONGODB_URI,
   jwtSecret: process.env.JWT_SECRET,
   jwtExpiresIn: process.env.JWT_EXPIRES_IN || "1h",
+    // Secret invite code needed to register as a Support Agent. If unset, agent sign-up is disabled.
+  agentRegistrationCode: process.env.AGENT_REGISTRATION_CODE,
   // Allowed frontend origins (HTTP + Socket.IO). Split on commas so we can allow more than one.
   clientOrigins: (process.env.CLIENT_ORIGIN || "http://localhost:5173")
     .split(",")

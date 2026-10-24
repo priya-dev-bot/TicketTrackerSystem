@@ -2250,3 +2250,100 @@ form > .btn-primary { margin-top: 1rem; }
     transition: none;
   }
 }
+
+
+/* Registration page refinements */
+.register-page {
+  gap: clamp(2rem, 5vw, 5rem);
+}
+
+.register-form-panel {
+  width: 100%;
+  max-width: 520px;
+}
+
+.register-page .login-welcome h1 {
+  max-width: 560px;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+}
+
+.register-page .login-welcome > p {
+  max-width: 480px;
+  line-height: 1.75;
+}
+
+.register-page .login-form-heading h2 {
+  letter-spacing: -0.025em;
+}
+
+.register-select {
+  cursor: pointer;
+}
+
+.register-page .login-input {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.register-page .login-input:focus {
+  outline: none;
+  border-color: var(--primary, #6558d3);
+  box-shadow: 0 0 0 3px rgb(101 88 211 / 14%);
+}
+
+.register-help {
+  display: block;
+  margin-top: 0.35rem;
+  color: var(--muted, #737373);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.register-agent-field {
+  padding: 0.85rem;
+  border: 1px solid var(--border, #e5e5e5);
+  border-radius: 12px;
+  background: var(--surface-secondary, #fafafa);
+}
+
+.register-submit {
+  width: 100%;
+  min-height: 48px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.register-submit:not(:disabled):hover {
+  transform: translateY(-1px);
+}
+
+.register-submit:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.login-switch {
+  margin: 1rem 0 0;
+  text-align: center;
+  color: var(--muted, #737373);
+}
+
+.login-switch a {
+  font-weight: 600;
+}
+
+.register-privacy {
+  margin: 0.85rem 0 0;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--muted, #737373);
+}
+
+@media (max-width: 640px) {
+  .register-page {
+    gap: 1.5rem;
+  }
+
+  .register-form-panel {
+    max-width: 100%;
+  }
+}

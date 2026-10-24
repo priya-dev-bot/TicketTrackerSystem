@@ -58,18 +58,31 @@ export function AuthProvider({ children }) {
     restoreSession();
   }, [logout]);
 
-  async function login(email, password) {
-    const res = await api.post("/auth/login", { email, password });
-    sessionStorage.setItem(TOKEN_KEY, res.data.token);
-    setAuthToken(res.data.token);
-    connectSocket(res.data.token, logout); // open the authenticated socket right away
+  
+  // Shared by login and registration: save the token, open the socket, store the user.
+  function startSession(data) {
+    sessionStorage.setItem(TOKEN_KEY, data.token);
+    setAuthToken(data.token);
+    connectSocket(data.token, logout);
     setSessionMessage("");
-    setUser(res.data.user);
-    return res.data.user;
+    setUser(data.user);
+    return data.user;
   }
 
+  async function login(email, password) {
+    const res = await api.post("/auth/login", { email, password });
+    return startSession(res.data);
+  }
+
+  // form = { name, email, password, role, agentCode }
+  async function register(form) {
+    const res = await api.post("/auth/register", form);
+    return startSession(res.data);
+  }
+
+
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout, sessionMessage }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ user, loading, login, register, logout, sessionMessage }}>{children}</AuthContext.Provider>
   );
 }
 

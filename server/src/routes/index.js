@@ -5,8 +5,8 @@ import { downloadAttachment } from "../controllers/ticketController.js";
 import { Router } from "express";
 import { requireAuth } from "../middleware/auth.js";
 import { requireRole } from "../middleware/requireRole.js";
-import { loginLimiter } from "../middleware/loginLimiter.js";
-import { login, logout, me } from "../controllers/authController.js";
+import { loginLimiter, registerLimiter } from "../middleware/loginLimiter.js";
+import { login, register, logout, me } from "../controllers/authController.js";
 import { listTickets, createTicket, getTicket, updateStatus, updatePriority } from "../controllers/ticketController.js";
 import { postMessage } from "../controllers/messageController.js";
 
@@ -17,6 +17,7 @@ router.get("/health", (req, res) => res.status(200).json({ status: "ok" }));
 router.post("/auth/login", loginLimiter, login);
 
 // Everything below requires a valid token (authentication)
+router.post("/auth/register", registerLimiter, register);
 router.use(requireAuth);
 router.post("/auth/logout", logout);
 router.get("/auth/me", me);

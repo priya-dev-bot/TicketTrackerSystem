@@ -1,6 +1,5 @@
-
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
 import { getErrorMessage } from "../services/api.js";
 import { homePathFor } from "../components/ProtectedRoute.jsx";
@@ -136,6 +135,10 @@ export default function LoginPage() {
             {!submitting && <span aria-hidden="true">→</span>}
           </button>
         </form>
+
+                <p className="login-switch">
+          New here? <Link to="/register">Create an account</Link>
+        </p>
 
         <p className="login-security-note">
           <span aria-hidden="true">●</span>

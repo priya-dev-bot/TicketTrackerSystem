@@ -8,6 +8,7 @@ import CustomerDashboard from "./pages/CustomerDashboard.jsx";
 import AgentDashboard from "./pages/AgentDashboard.jsx";
 import CreateTicket from "./pages/CreateTicket.jsx";
 import TicketDetail from "./pages/TicketDetail.jsx";
+import RegisterPage from "./pages/RegisterPage.jsx";
 
 function HomeRedirect() {
   const { user, loading } = useAuth();
@@ -21,6 +22,7 @@ export default function App() {
       <Navbar />
       <main className="container">
         <Routes>
+          <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/" element={<HomeRedirect />} />
           <Route path="/customer" element={<ProtectedRoute role="customer"><CustomerDashboard /></ProtectedRoute>} />
