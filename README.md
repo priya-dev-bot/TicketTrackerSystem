@@ -8,6 +8,17 @@ The Instaport Support Ticket System provides a centralized platform for managing
 
 **Project status:** Core backend checks and frontend production build are documented. Manual UI verification and deployment are still pending.
 
+## Live application
+
+-   **Frontend:** https://ticket-tracker-system-five.vercel.app/
+-   **Backend API:** https://tickettrackersystem.onrender.com
+-   **Health check:**
+    https://tickettrackersystem.onrender.com/api/health
+
+The health endpoint should return JSON similar to `{"status":"ok"}` when
+the backend is available. Live availability can vary by hosting/service
+state.
+
 ## Features
 
 ### Customer
@@ -107,7 +118,7 @@ TicketTrackerSystem/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/priya-dev-bot/TicketTrackerSystem.git
+git clone https://github.com/priya-dev-bot/TicketTrackerSystem
 cd TicketTrackerSystem
 ```
 
@@ -238,4 +249,4 @@ AI tools assisted with project planning, implementation, and documentation. The 
 ## Author
 **Priyanka Jatoliya**
 
-GitHub: [@priya-dev-bot](https://github.com/priya-dev-bot)
+GitHub: https://github.com/priya-dev-bot
