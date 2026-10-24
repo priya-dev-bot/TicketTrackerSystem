@@ -236,7 +236,6 @@ Deployment requires configuring the appropriate environment variables, CORS orig
 AI tools assisted with project planning, implementation, and documentation. The project owner should review the code, verify application behavior, and be prepared to explain the implementation and testing results.
 
 ## Author
-
 **Priyanka Jatoliya**
 
 GitHub: [@priya-dev-bot](https://github.com/priya-dev-bot)
