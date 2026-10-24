@@ -101,9 +101,27 @@ export async function getTicket(req, res, next) {
       attachments: attachments.map((a) => ({
         _id: a._id.toString(), originalName: a.originalName, mimeType: a.mimeType, size: a.size,
       })),
-      messages: messages.map((m) =>
-        messageToJson(m, { id: m.senderId._id.toString(), name: m.senderId.name, role: m.senderId.role })
-      ),
+      messages: messages.map((m) => {
+  if (!m.senderId) {
+    return {
+      _id: m._id.toString(),
+      ticketId: m.ticketId.toString(),
+      body: m.body,
+      createdAt: m.createdAt,
+      sender: {
+        id: null,
+        name: "Deleted user",
+        role: "unknown",
+      },
+    };
+  }
+
+  return messageToJson(m, {
+    id: m.senderId._id.toString(),
+    name: m.senderId.name,
+    role: m.senderId.role,
+  });
+}),
     });
   } catch (err) {
     next(err);
