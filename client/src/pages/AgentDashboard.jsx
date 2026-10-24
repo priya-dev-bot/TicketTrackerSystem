@@ -1,4 +1,4 @@
-// FILE: pages/AgentDashboard.jsx - ALL tickets from all customers, with filters. (AGENT-01)
+
 import { useEffect, useState } from "react";
 import api, { getErrorMessage } from "../services/api.js";
 import StatusFilter from "../components/StatusFilter.jsx";
@@ -13,11 +13,16 @@ export default function AgentDashboard() {
 
   useEffect(() => {
     let cancelled = false;
+
     async function load() {
       setLoading(true);
       setError("");
+
       try {
-        const res = await api.get("/tickets", { params: { status: filter } });
+        const res = await api.get("/tickets", {
+          params: { status: filter },
+        });
+
         if (!cancelled) setTickets(res.data.tickets);
       } catch (err) {
         if (!cancelled) setError(getErrorMessage(err));
@@ -25,23 +30,89 @@ export default function AgentDashboard() {
         if (!cancelled) setLoading(false);
       }
     }
+
     load();
-    return () => { cancelled = true; };
+
+    return () => {
+      cancelled = true;
+    };
   }, [filter]);
 
   return (
-    <section>
-      <div className="page-head">
-        <h1>All customer tickets</h1>
-        <span className="muted">{!loading && !error ? `${tickets.length} shown` : ""}</span>
+    <section className="agent-dashboard">
+      <header className="agent-hero">
+        <div className="agent-hero-content">
+          <span className="agent-eyebrow">
+            INSTAPORT SUPPORT CENTER
+          </span>
+
+          <h1>Agent Dashboard</h1>
+
+          <p>
+            Manage customer requests, track progress, and keep every
+            conversation moving.
+          </p>
+        </div>
+
+        <div className="agent-hero-icon" aria-hidden="true">
+          <span>✓</span>
+        </div>
+      </header>
+
+      <div className="agent-section-heading">
+        <div>
+          <h2>Customer tickets</h2>
+          <p>View and manage requests from all customers.</p>
+        </div>
+
+        <span className="agent-count">
+          {!loading && !error ? `${tickets.length} tickets` : "Loading…"}
+        </span>
       </div>
-      <StatusFilter value={filter} onChange={setFilter} />
+
+      <div className="agent-filter-panel">
+        <div className="agent-filter-label">
+          <span className="agent-filter-dot" />
+          Filter by status
+        </div>
+
+        <StatusFilter value={filter} onChange={setFilter} />
+      </div>
+
       <Notice type="error">{error}</Notice>
-      {loading && <p className="page-message" role="status">Loading tickets...</p>}
-      {!loading && !error && tickets.length === 0 && (
-        <div className="empty"><p>{filter === "All" ? "No tickets have been created yet." : `No ${filter} tickets right now.`}</p></div>
+
+      {loading && (
+        <div className="agent-state" role="status">
+          <span className="agent-spinner" />
+          <p>Loading customer tickets…</p>
+        </div>
       )}
-      {!loading && tickets.length > 0 && <TicketList tickets={tickets} showCustomer={true} />}
+
+      {!loading && !error && tickets.length === 0 && (
+        <div className="agent-empty">
+          <div className="agent-empty-icon" aria-hidden="true">
+            ♧
+          </div>
+
+          <h3>
+            {filter === "All"
+              ? "Your inbox is clear"
+              : `No ${filter.toLowerCase()} tickets`}
+          </h3>
+
+          <p>
+            {filter === "All"
+              ? "New customer requests will appear here when they arrive."
+              : "Try selecting another status to see more tickets."}
+          </p>
+        </div>
+      )}
+
+      {!loading && !error && tickets.length > 0 && (
+        <div className="agent-ticket-list">
+          <TicketList tickets={tickets} showCustomer={true} />
+        </div>
+      )}
     </section>
   );
 }
