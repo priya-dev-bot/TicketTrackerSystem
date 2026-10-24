@@ -155,4 +155,5 @@ Troubleshooting: *CORS error* → `CLIENT_ORIGIN` mismatch (scheme/host/trailing
 ## AI tool disclosure
 This project was generated with Claude (Anthropic) from the assessment PDF: planning, code and documentation. **What was verified by running it:** the `curl` checks above, seed script idempotence, server start, CORS behaviour and a production frontend build. **What I (the author) must still verify and be able to explain:** the UI in a browser, Atlas connectivity, deployment, and every file (see `CODE_EXPLANATION.md`). *Edit this paragraph to describe what you personally checked.*
 #   T i c k e t T r a c k e r S y s t e m  
+ #   T i c k e t T r a c k e r S y s t e m  
  
