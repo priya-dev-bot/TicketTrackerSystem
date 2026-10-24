@@ -7,7 +7,10 @@ let socket = null;
 
 export function connectSocket(token, onAuthProblem) {
   disconnectSocket(); // never keep two connections
-  socket = io(import.meta.env.VITE_SOCKET_URL || (import.meta.env.DEV ? "http://localhost:5000" : undefined), { auth: { token } });
+    const url = import.meta.env.VITE_SOCKET_URL || (import.meta.env.DEV ? "http://localhost:5000" : "");
+  // No socket server configured (Vercel-only hosting): skip sockets, pages poll instead.
+  if (!url) return null;
+  socket = io(url, { auth: { token } });
 
   // Server rejected the handshake (missing/invalid/expired token) -> treat as logged out.
   socket.on("connect_error", (err) => {

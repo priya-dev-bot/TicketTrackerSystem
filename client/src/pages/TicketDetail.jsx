@@ -8,6 +8,7 @@ import { useTicketSocket } from "../hooks/useTicketSocket.js";
 import { StatusBadge, PriorityBadge } from "../components/Badge.jsx";
 import MessageList from "../components/MessageList.jsx";
 import Notice from "../components/Notice.jsx";
+import { getSocket } from "../services/socket.js";
 
 const NEXT_STATUS = { Open: "In Progress", "In Progress": "Resolved" };
 
@@ -66,6 +67,13 @@ setMessages((prev) =>
     onTicketUpdated: (t) => setTicket(t),
     onJoined: () => loadTicket(true), // catches any reply sent before the room was joined
   });
+
+    // No socket (Vercel-only hosting): check for new replies and status changes every 5 seconds.
+  useEffect(() => {
+    if (getSocket()) return;
+    const timer = setInterval(() => loadTicket(true), 5000);
+    return () => clearInterval(timer);
+  }, [loadTicket]);
 
   // Scroll to the newest message.
   useEffect(() => {

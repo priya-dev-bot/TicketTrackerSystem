@@ -3,7 +3,7 @@
 import mongoose from "mongoose";
 
 export async function connectDb(uri) {
+  if (mongoose.connection.readyState !== 0) return; // already connected or connecting
   await mongoose.connect(uri);
-  // We deliberately do NOT print the URI because it contains the database password.
   console.log("MongoDB connected");
 }
